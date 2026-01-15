@@ -109,14 +109,7 @@ class PopupController {
                 this.currentFontSize++;
                 this.updateFontSizeDisplay();
                 await this.sendMessage('updateFontSize', { fontSize: this.currentFontSize });
-            }ner('blur', (e) => {
-            let value = parseInt(e.target.value, 10);
-            if (isNaN(value) || value < 8) {
-                value = 8;
-            } else if (value > 32) {
-                value = 32;
             }
-            e.target.value = value;
         });
     }
 
