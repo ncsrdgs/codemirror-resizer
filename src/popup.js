@@ -6,8 +6,13 @@
 class PopupController {
     constructor() {
         this.toggleEnabled = document.getElementById('toggleEnabled');
-        this.fontSize = document.getElementById('fontSize');
+        this.fontSizeValue = document.getElementById('fontSizeValue');
+        this.decreaseFont = document.getElementById('decreaseFont');
+        this.increaseFont = document.getElementById('increaseFont');
         this.status = document.getElementById('status');
+        this.currentFontSize = 14;
+        this.minFontSize = 8;
+        this.maxFontSize = 32;
         
         this.init();
     }
@@ -44,7 +49,8 @@ class PopupController {
                 
                 if (response) {
                     this.toggleEnabled.checked = response.enabled;
-                    this.fontSize.value = response.fontSize;
+                    this.currentFontSize = response.fontSize;
+                    this.updateFontSizeDisplay();
                     this.updateStatus(
                         response.enabled ? 'Extensão Ativa' : 'Extensão Desativada',
                         response.enabled ? 'active' : 'inactive'
@@ -64,33 +70,39 @@ class PopupController {
         try {
             const settings = await chrome.storage.sync.get(['enabled', 'fontSize']);
             this.toggleEnabled.checked = settings.enabled !== false;
-            this.fontSize.value = settings.fontSize || 14;
+            this.currentFontSize = settings.fontSize || 14;
+            this.updateFontSizeDisplay();
         } catch (error) {
             console.error('Erro ao carregar do storage:', error);
         }
+    }
+
+    updateFontSizeDisplay() {
+        this.fontSizeValue.textContent = this.currentFontSize;
+        this.decreaseFont.disabled = this.currentFontSize <= this.minFontSize;
+        this.increaseFont.disabled = this.currentFontSize >= this.maxFontSize;
     }
 
     attachEventListeners() {
         // Toggle de ativação
         this.toggleEnabled.addEventListener('change', async (e) => {
             const enabled = e.target.checked;
-            await this.sendMessage('toggleEnabled', { enabled });
-            this.updateStatus(
-                enabled ? 'Extensão Ativa' : 'Extensão Desativada',
-                enabled ? 'active' : 'inactive'
-            );
-        });
-
-        // Mudança de fonte
-        this.fontSize.addEventListener('input', async (e) => {
-            const fontSize = parseInt(e.target.value, 10);
-            if (fontSize >= 8 && fontSize <= 32) {
-                await this.sendMessage('updateFontSize', { fontSize });
+           Botão de diminuir fonte
+        this.decreaseFont.addEventListener('click', async () => {
+            if (this.currentFontSize > this.minFontSize) {
+                this.currentFontSize--;
+                this.updateFontSizeDisplay();
+                await this.sendMessage('updateFontSize', { fontSize: this.currentFontSize });
             }
         });
 
-        // Validação do campo de fonte
-        this.fontSize.addEventListener('blur', (e) => {
+        // Botão de aumentar fonte
+        this.increaseFont.addEventListener('click', async () => {
+            if (this.currentFontSize < this.maxFontSize) {
+                this.currentFontSize++;
+                this.updateFontSizeDisplay();
+                await this.sendMessage('updateFontSize', { fontSize: this.currentFontSize });
+            }ner('blur', (e) => {
             let value = parseInt(e.target.value, 10);
             if (isNaN(value) || value < 8) {
                 value = 8;

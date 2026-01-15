@@ -100,31 +100,46 @@
         .font-control {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 12px;
         }
 
-        .font-control input[type="number"] {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.2);
+        .font-control button {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
             color: #fff;
-            font-size: 14px;
+            font-size: 20px;
             font-weight: 500;
-            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             outline: none;
-            transition: all 0.3s;
         }
 
-        .font-control input[type="number"]:focus {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+        .font-control button:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.05);
         }
 
-        .font-control input[type="number"]::-webkit-inner-spin-button,
-        .font-control input[type="number"]::-webkit-outer-spin-button {
-            opacity: 1;
+        .font-control button:active {
+            transform: scale(0.95);
+        }
+
+        .font-control button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .font-value {
+            min-width: 60px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .font-control span {
@@ -229,8 +244,12 @@
             <span>Tamanho da Fonte</span>
         </div>
         <div class="font-control">
-            <input type="number" id="fontSize" min="8" max="32" value="14">
-            <span>px</span>
+            <button id="decreaseFont" aria-label="Diminuir fonte">−</button>
+            <div class="font-value">
+                <span id="fontSizeValue">14</span>
+                <span>px</span>
+            </div>
+            <button id="increaseFont" aria-label="Aumentar fonte">+</button>
         </div>
     </div>
 
