@@ -87,7 +87,14 @@ class PopupController {
         // Toggle de ativação
         this.toggleEnabled.addEventListener('change', async (e) => {
             const enabled = e.target.checked;
-           Botão de diminuir fonte
+            await this.sendMessage('toggleEnabled', { enabled });
+            this.updateStatus(
+                enabled ? 'Extensão Ativa' : 'Extensão Desativada',
+                enabled ? 'active' : 'inactive'
+            );
+        });
+
+        // Botão de diminuir fonte
         this.decreaseFont.addEventListener('click', async () => {
             if (this.currentFontSize > this.minFontSize) {
                 this.currentFontSize--;
