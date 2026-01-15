@@ -5,23 +5,23 @@
   "description": "Permite redimensionar editores CodeMirror com o mouse e personalizar a fonte",
   "permissions": ["storage"],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup.html",
     "default_icon": {
-      "16": "logo.svg",
-      "48": "logo.svg",
-      "128": "logo.svg"
+      "16": "icons/icon.svg",
+      "48": "icons/icon.svg",
+      "128": "icons/icon.svg"
     }
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "js": ["src/content.js"],
       "run_at": "document_idle"
     }
   ],
   "icons": {
-    "16": "logo.svg",
-    "48": "logo.svg",
-    "128": "logo.svg"
+    "16": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "128": "icons/icon.svg"
   }
 }

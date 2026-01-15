@@ -43,18 +43,22 @@ Uma extensão do Chrome que permite redimensionar editores CodeMirror com o mous
 
 ```
 codemirror-resizer/
+├── icons/             # Ícones da extensão
+│   └── icon.svg       # Ícone principal
+├── src/               # Código fonte
+│   ├── content.js     # Script injetado nas páginas
+│   ├── popup.html     # Interface do popup
+│   └── popup.js       # Lógica do popup
 ├── manifest.json      # Configuração da extensão
-├── content.js         # Script injetado nas páginas
-├── popup.html         # Interface do popup
-├── popup.js           # Lógica do popup
-├── logo.svg           # Ícone da extensão
+├── .gitignore         # Arquivos ignorados pelo git
 └── README.md          # Este arquivo
 ```
 
 ## 🔧 Desenvolvimento
-
-### Arquivos Principais
-
+src/content.js**: Classe `CodeMirrorResizer` que gerencia a funcionalidade principal
+- **src/popup.js**: Classe `PopupController` que controla a interface do usuário
+- **manifest.json**: Configuração da extensão (permissões, scripts, ícones)
+- **icons/icon.svg**: Ícone da extensão
 - **content.js**: Classe `CodeMirrorResizer` que gerencia a funcionalidade principal
 - **popup.js**: Classe `PopupController` que controla a interface do usuário
 - **manifest.json**: Configuração da extensão (permissões, scripts, ícones)
